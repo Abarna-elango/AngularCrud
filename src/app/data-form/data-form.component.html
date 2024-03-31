@@ -1,0 +1,73 @@
+<div class="ms-5 mt-5">
+  <h1 class="text-center">CRUD Operation</h1>
+</div>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <button class="btn btn-warning mt-3 mb-5" routerLink="/table">
+        Back
+      </button>
+
+      <form [formGroup]="dataForm" (ngSubmit)="submitForm()">
+        <input type="hidden" id="id" formControlName="id" />
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name" class="fw-bold">Name :</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control"
+            />
+            <div
+              *ngIf="
+                dataForm.get('name')?.touched && dataForm.get('name')?.errors
+              "
+              class="text-danger"
+            >
+              <div *ngIf="dataForm.get('name')?.hasError('required')">
+                Name is required *.
+              </div>
+              <div *ngIf="dataForm.get('name')?.hasError('minlength')">
+                Name must be at least 2 characters long *.
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="phone" class="fw-bold">Phone Number :</label>
+            <input
+              type="tel"
+              id="phone"
+              formControlName="phone"
+              class="form-control"
+            />
+            <div
+              *ngIf="
+                dataForm.get('phone')?.touched && dataForm.get('phone')?.errors
+              "
+              class="text-danger"
+            >
+              <div *ngIf="dataForm.get('phone')?.hasError('required')">
+                Phone Number is required *.
+              </div>
+              <div *ngIf="dataForm.get('phone')?.hasError('pattern')">
+                Phone Number must be 10 digits *.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button
+              type="submit"
+              [disabled]="dataForm.invalid"
+              class="btn btn-primary mt-5"
+            >
+              {{ editService.isEdit ? "Update" : "Submit" }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
